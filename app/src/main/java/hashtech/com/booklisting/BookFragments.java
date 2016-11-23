@@ -54,8 +54,6 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
          , when rotating the activity the same loader will be used.
          */
         getLoaderManager().initLoader(0, null, this).forceLoad();
-        getLoaderManager().initLoader(1, null, this).forceLoad();
-        getLoaderManager().initLoader(2, null, this).forceLoad();
     }
 
     @Override
@@ -74,7 +72,6 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
 
         progressDialog = new ProgressDialog(getActivity(), ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Loading ...");
-        progressDialog.setCancelable(false);
         progressDialog.show();
         // return your loader
         return new BooksLoader(getActivity());
@@ -82,9 +79,11 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Book>> loader, ArrayList<Book> data) {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mRecyclerView.setAdapter(new BooksAdapter(getActivity(), data));
-        progressDialog.dismiss();
     }
 
 
@@ -109,13 +108,90 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return parseJson(response);
+            try {
+                return parseJsonOld(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
         }
 
-        private ArrayList<Book> parseJson(String jsonResponse) {
+        private ArrayList<Book> parseJson(String response)  {
+
+            ArrayList<Book> bookArrayList =new ArrayList<>(); ;
+
+            try {
+
+
+                JSONObject root = new JSONObject(response);
+
+                JSONArray items = root.getJSONArray("items");
+
+                for (int i = 0; i < items.length(); i++) {
+
+                    JSONObject jsonObject = items.getJSONObject(i);
+
+                    JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
+                    String  title = volumeInfo.getString("title");
+                    String publisher = volumeInfo.get("publisher").toString();
+                    String publishedDate = volumeInfo.get("publishedDate").toString();
+                    String previewLink = volumeInfo.get("previewLink").toString();
+                    String infoLink = volumeInfo.get("infoLink").toString();
+                    String description = volumeInfo.get("description").toString();
+                    String thumbnail = volumeInfo.getJSONObject("imageLinks").get("thumbnail").toString();
+                    String authors = volumeInfo.getJSONArray("authors").get(0).toString();
+
+                    Book  book = new Book();
+                    book.setTitle(title);
+                    book.setAuthors(authors);
+                    book.setDescription(description);
+                    book.setInfoLink(infoLink);
+                    book.setPublishedDate(publishedDate);
+                    book.setPreviewLink(previewLink);
+                    book.setThumbnail(thumbnail);
+                    book.setPublisher(publisher);
+
+
+                    bookArrayList.add(book);
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+
+
+
+
+
+        private ArrayList<Book> parseJsonOld(String jsonResponse) throws JSONException {
 
             ArrayList<Book> bookArrayList = new ArrayList<>();
-            try {
+
+
 
 
                 JSONObject mainJsonObject = new JSONObject(jsonResponse);
@@ -126,6 +202,10 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
                     JSONObject jsonObject = items.getJSONObject(i);
                     Book book = new Book();
                     JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
+                    JSONObject accessInfo = jsonObject.getJSONObject("accessInfo");
+
+                    String country = accessInfo.opt("country").toString();
+
                     String title = volumeInfo.get("title").toString();
                     String authors = volumeInfo.getJSONArray("authors").get(0).toString();
                     String publisher = volumeInfo.get("publisher").toString();
@@ -148,9 +228,6 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
                 }
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
 
             return bookArrayList;

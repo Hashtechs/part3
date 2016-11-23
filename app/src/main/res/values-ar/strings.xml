@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="book_title">عنوان الكتاب</string>
+    <string name="publish_date">تاريخ النشر</string>
+    <string name="author">المؤلف</string>
+    <string name="description">عن الكتاب </string>
+</resources>
