@@ -14,12 +14,7 @@
         android:layout_height="match_parent"
         tools:context="hashtech.com.booklisting.activities.DetailsActivity">
 
-        <TextView
-            android:layout_marginTop="24dp"
-            style="@style/DetailsData"
-            android:gravity="center"
-            android:text="السلام عليكم"
-            android:layout_height="wrap_content"/>
+
 
         <ImageView
             android:id="@+id/ivImg"

@@ -25,6 +25,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         // retrieve Serializable
         Book book = (Book) getIntent().getSerializableExtra("model");
+
+
+
         tvAuther = (TextView) findViewById(R.id.tvAuther);
         tvpublishDate = (TextView) findViewById(R.id.tvpublishDate);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -43,7 +46,6 @@ public class DetailsActivity extends AppCompatActivity {
                 .crossFade()// animation
                 .placeholder(R.drawable.content)// place holder for imgs
                 .into(ivImg);// image view to load in
-
 
 
     }
