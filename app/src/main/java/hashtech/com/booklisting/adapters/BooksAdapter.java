@@ -25,7 +25,7 @@ import hashtech.com.booklisting.models.Book;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.LocationViewHolder> {
 
     Context mContext;
-    ArrayList<Book> mBooks;
+    ArrayList<Book> mBooks=new ArrayList<>();
 
     public BooksAdapter(Context mContext, ArrayList<Book> mBooks) {
         this.mContext = mContext;
@@ -113,6 +113,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.LocationView
         sendIntent.putExtra(Intent.EXTRA_TEXT,msg);
         sendIntent.setType("text/plain");
         mContext.startActivity(sendIntent);
+
     }
 
 

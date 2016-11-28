@@ -15,4 +15,10 @@
     <string name="description">Description</string>
     <string name="hello">Hello</string>
     <string name="search">Search</string>
+
+
+    <integer name="grid_couomn">2</integer>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="lang">العربية</string>
+
 </resources>

@@ -20,16 +20,14 @@
 
     <style name="DetailsText">
 
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:paddingRight">16dp</item>
-    <item name="android:paddingLeft">16dp</item>
-    <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
 
 
-
-
-</style>
+    </style>
 
 
     <style name="DetailsData">
@@ -40,9 +38,8 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:textColor">@android:color/darker_gray</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.SearchResult.Subtitle</item>
-
-
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.SearchResult.Subtitle
+        </item>
 
 
     </style>

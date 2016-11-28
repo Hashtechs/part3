@@ -34,6 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvDesc = (TextView) findViewById(R.id.tvDesc);
         ivImg = (ImageView) findViewById(R.id.ivImg);
 
+        ivImg.setImageResource(R.drawable.content);
 
         tvAuther.setText(book.getAuthors());
         tvpublishDate.setText(book.getPublishedDate());

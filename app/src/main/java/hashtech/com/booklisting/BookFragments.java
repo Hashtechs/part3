@@ -56,6 +56,9 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
         getLoaderManager().initLoader(0, null, this).forceLoad();
     }
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +85,9 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        int coulmnNo = getResources().getInteger(R.integer.grid_couomn);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), coulmnNo));
         mRecyclerView.setAdapter(new BooksAdapter(getActivity(), data));
     }
 
@@ -122,45 +127,41 @@ public class BookFragments extends Fragment implements LoaderManager.LoaderCallb
 
             ArrayList<Book> bookArrayList = new ArrayList<>();
 
-                JSONObject mainJsonObject = new JSONObject(jsonResponse);
+            JSONObject mainJsonObject = new JSONObject(jsonResponse);
 
-                JSONArray items = mainJsonObject.getJSONArray("items");
+            JSONArray items = mainJsonObject.getJSONArray("items");
 
-                for (int i = 0; i < items.length(); i++) {
+            for (int i = 0; i < items.length(); i++) {
 
-                    JSONObject jsonObject = items.getJSONObject(i);
-                    Book book = new Book();
-                    JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
-                    String title = volumeInfo.get("title").toString();
-                    String authors = volumeInfo.getJSONArray("authors").get(0).toString();
-                    String publisher = volumeInfo.get("publisher").toString();
-                    String publishedDate = volumeInfo.get("publishedDate").toString();
-                    String previewLink = volumeInfo.get("previewLink").toString();
-                    String infoLink = volumeInfo.get("infoLink").toString();
-                    String description = volumeInfo.get("description").toString();
-                    String thumbnail = volumeInfo.getJSONObject("imageLinks").get("thumbnail").toString();
+                JSONObject jsonObject = items.getJSONObject(i);
+                Book book = new Book();
+                JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
+                String title = volumeInfo.get("title").toString();
+                String authors = volumeInfo.getJSONArray("authors").get(0).toString();
+                String publisher = volumeInfo.get("publisher").toString();
+                String publishedDate = volumeInfo.get("publishedDate").toString();
+                String previewLink = volumeInfo.get("previewLink").toString();
+                String infoLink = volumeInfo.get("infoLink").toString();
+                String description = volumeInfo.get("description").toString();
+                String thumbnail = volumeInfo.getJSONObject("imageLinks").get("thumbnail").toString();
 
-                    book.setTitle(title);
-                    book.setAuthors(authors);
-                    book.setDescription(description);
-                    book.setInfoLink(infoLink);
-                    book.setPublishedDate(publishedDate);
-                    book.setPreviewLink(previewLink);
-                    book.setThumbnail(thumbnail);
-                    book.setPublisher(publisher);
+                book.setTitle(title);
+                book.setAuthors(authors);
+                book.setDescription(description);
+                book.setInfoLink(infoLink);
+                book.setPublishedDate(publishedDate);
+                book.setPreviewLink(previewLink);
+                book.setThumbnail(thumbnail);
+                book.setPublisher(publisher);
 
-                    bookArrayList.add(book);
-                }
-
-
+                bookArrayList.add(book);
+            }
 
 
             return bookArrayList;
         }
 
     }
-
-
 
 
 }
